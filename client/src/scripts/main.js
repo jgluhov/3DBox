@@ -19,16 +19,15 @@ import Box from './box';
 
 		let box = new Box();
 		let triangulations = box.triangulate(1,1,1);
-		let geometry = createGeometry(triangulations);
+		let geometry = parseTriangulations(triangulations);
 
 		let material = new THREE.MeshNormalMaterial({side: THREE.DoubleSide});
 		let cube = new THREE.Mesh( geometry, material );
 
-
 		scene.add( cube );
 
 		// Create box geometry
-		function createGeometry(triangulations) {
+		function parseTriangulations(triangulations) {
 
 			let geometry = new THREE.Geometry();
 
