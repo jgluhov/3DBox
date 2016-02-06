@@ -18,6 +18,8 @@
   "author": "JGluhov",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.13.4"
+    "body-parser": "^1.14.2",
+    "express": "^4.13.4",
+    "node-gyp": "^3.2.1"
   }
 }
