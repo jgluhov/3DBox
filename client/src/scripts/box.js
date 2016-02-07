@@ -10,14 +10,16 @@ export default class Box {
 	}
 
 	generateVertices(length, width, height) {
-		this.vertices.push(this.createVertex(0, 0, 0));  // 0
-		this.vertices.push(this.createVertex(0, length, 0)); // 1
-		this.vertices.push(this.createVertex(0, 0, height)); // 2
-		this.vertices.push(this.createVertex(0, length, height)); // 3
-		this.vertices.push(this.createVertex(width, 0, 0)); // 4
-		this.vertices.push(this.createVertex(width, 0, height)); // 5
-		this.vertices.push(this.createVertex(width, length, 0)); // 6
-		this.vertices.push(this.createVertex(width, length, height)); // 7
+		//this.vertices.push(this.createVertex(0, 0, 0));  // 0
+		//this.vertices.push(this.createVertex(0, length, 0)); // 1
+		//this.vertices.push(this.createVertex(0, 0, height)); // 2
+		//this.vertices.push(this.createVertex(0, length, height)); // 3
+		//this.vertices.push(this.createVertex(width, 0, 0)); // 4
+		//this.vertices.push(this.createVertex(width, 0, height)); // 5
+		//this.vertices.push(this.createVertex(width, length, 0)); // 6
+		//this.vertices.push(this.createVertex(width, length, height)); // 7
+
+
 	}
 
 	generateTriangulations() {

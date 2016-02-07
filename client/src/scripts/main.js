@@ -13,56 +13,59 @@ import FormHandle from './formHandle';
 	function main() {
 
 		let scene = new THREE.Scene();
+		let cube = null;
+		var windowHalfX = window.innerWidth / 2;
+		var windowHalfY = window.innerHeight / 2;
+		var targetRotation = 0;
+		var targetRotationOnMouseDown = 0;
 
+		var mouseX = 0;
+		var mouseXOnMouseDown = 0;
 		let camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 1, 1000 );
 		camera.position.z = 5;
 
-
-		//let triangulations = box.triangulate(1,1,1);
-		//let geometry = parseTriangulations(triangulations);
-		//
-		//let material = new THREE.MeshNormalMaterial({side: THREE.DoubleSide});
-		//let cube = new THREE.Mesh( geometry, material );
-		//
-		//scene.add( cube );
+		let formHandle = new FormHandle('controlsForm');
 
 
+		formHandle.observe().subscribe(
+			(triangulations) => {
+				let geometry = createGeometryByTriangulations(triangulations);
+
+				for ( let i = 0; i < geometry.faces.length; i += 2 ) {
+
+					var hex = Math.random() * 0xffffff;
+					geometry.faces[ i ].color.setHex( hex );
+					geometry.faces[ i + 1 ].color.setHex( hex );
+
+				}
+
+				var material = new THREE.MeshBasicMaterial( { side: THREE.DoubleSide, vertexColors: THREE.FaceColors, overdraw: 0.5 } );
+
+				cube = new THREE.Mesh( geometry, material );
+
+				scene.add( cube );
+			},
+			(err) => console.log(err));
 
 
 		// Create renderer
 		let renderer = new THREE.WebGLRenderer();
-		renderer.setClearColor( 0x434343 );
+		renderer.setClearColor( 0xf0f0f0 );
 		renderer.setPixelRatio( window.devicePixelRatio );
 		renderer.setSize( window.innerWidth, window.innerHeight );
 
 		document.body.appendChild( renderer.domElement );
 
+		window.addEventListener( 'resize', onWindowResize, false );
+
 		let render = function () {
 			requestAnimationFrame( render );
+			if(cube) cube.rotation.x += 0.005;
+			if(cube) cube.rotation.y += 0.005;
 			renderer.render(scene, camera);
 		};
 
-		let formHandle = new FormHandle('controlsForm');
-		formHandle.observe().subscribe(
-			(triangulations) => {
-				let geometry = createGeometryByTriangulations(triangulations);
-
-
-				let material = new THREE.MeshNormalMaterial({side: THREE.DoubleSide});
-				let cube = new THREE.Mesh( geometry, material );
-
-				scene.add( cube );
-
-				let light = new THREE.PointLight();
-				light.position.set(5, 5, 5);
-				scene.add(this.light);
-
-				render();
-			},
-			(err) => {
-				console.log(err)
-			});
-
+		render();
 
 		// Create box geometry
 		function createGeometryByTriangulations(triangulations) {
@@ -81,45 +84,18 @@ import FormHandle from './formHandle';
 			return geometry;
 		}
 
-	//	addEventListener(controlsForm, 'submit', (e) => {
-	//		e.preventDefault();
-	//
-	//		let length = controlsForm.elements.boxLength.value;
-	//		let width = controlsForm.elements.boxWidth.value;
-	//		let height = controlsForm.elements.boxHeight.value;
-	//
-	//		let xhr = new XMLHttpRequest();
-	//
-	//		xhr.open('GET', `
-	//	http://localhost:1337/triangulate?
-	//	length=${length}&
-	//	width=${width}&
-	//	height=${height}`, true);
-	//		xhr.setRequestHeader('Content-Type', 'application/json');
-	//		xhr.send();
-	//
-	//		xhr.onreadystatechange = () => {
-	//			if (xhr.readyState != 4) return;
-	//
-	//			if (xhr.status != 200) {
-	//				console.log(xhr.status + ': ' + xhr.statusText);
-	//			} else {
-	//				let triangulations = JSON.parse(xhr.responseText);
-	//
-	//				let geometry = parseTriangulations(triangulations);
-	//
-	//				let material = new THREE.MeshNormalMaterial({side: THREE.DoubleSide});
-	//				cube = new THREE.Mesh( geometry, material );
-	//
-	//				scene.add( cube );
-	//
-	//				render();
-	//			}
-	//
-	//		}
-	//
-	//	})
-	//
+		function onWindowResize() {
+
+			windowHalfX = window.innerWidth / 2;
+			windowHalfY = window.innerHeight / 2;
+
+			camera.aspect = window.innerWidth / window.innerHeight;
+			camera.updateProjectionMatrix();
+
+			renderer.setSize( window.innerWidth, window.innerHeight );
+
+		}
+
 	}
 
 	document.addEventListener('DOMContentLoaded', main);
