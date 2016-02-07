@@ -26,13 +26,4 @@ export default class CustomBoxGeometry extends THREE.Geometry {
 			this.faces.push( new THREE.Face3 (i, i+1, i+2))
 		}
 	}
-	setColours() {
-		for ( let i = 0; i < this.faces.length; i += 2 ) {
-
-			var hex = Math.random() * 0xffffff;
-			this.faces[ i ].color.setHex( hex );
-			this.faces[ i + 1 ].color.setHex( hex );
-
-		}
-	}
 }
