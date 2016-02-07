@@ -51,8 +51,8 @@ import FormHandle from './formHandle';
 		}
 
 		// Set the background color of the renderer to lightgray, with full opacity
-		renderer.setClearColor(0x000000, 1);
-//0x767676
+		renderer.setClearColor(0x767676, 1);
+
 		// Get the size of the inner window (content area) to create a full size renderer
 		let canvasWidth = window.innerWidth;
 		let canvasHeight = window.innerHeight;
@@ -68,8 +68,8 @@ import FormHandle from './formHandle';
 		scene = new THREE.Scene();
 
 		// Create the camera to look into scene.
-		camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
-		camera.position.set(20, 20, 20);
+		camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
+		camera.position.set(500, 500, 500);
 		camera.lookAt(scene.position);
 		scene.add(camera);
 
@@ -79,42 +79,25 @@ import FormHandle from './formHandle';
 			side: THREE.DoubleSide
 		});
 
-		//var cubeGeometry = new THREE.CubeGeometry(4,4,4);
-		//var cubeMaterial = new THREE.MeshLambertMaterial(
-		//	{color: 0xff0000});
-		//var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-		//
-		//scene.add(cube)
+		// Add two point lights to set our world more like as on photo
+		// Directional light doesn't suit for this as this ones.
+		var pointLight1 = new THREE.PointLight(0xffffff);
+		pointLight1.position.set(500,500,500);
+		scene.add(pointLight1);
 
-		var light = new THREE.PointLight(0xffffff);
-		light.position.set(-50,50,100);
-		scene.add(light);
-
+		var pointLight2 = new THREE.PointLight( 0xffffff, 1, 1000 );
+		pointLight2.position.set( 250, 450, 250 );
+		scene.add( pointLight2 );
 
 		// Create a form handle to change dimensions of the box.
 		let formHandle = new FormHandle('controlsForm');
 		formHandle.observe().subscribe(
 			(triangulations) => {
+				scene.remove(cubeMesh);
 				let boxGeometry = new CustomBoxGeometry(triangulations);
 				cubeMesh = new THREE.Mesh(boxGeometry, boxMaterial);
 				scene.add(cubeMesh);
-
-				// add subtle ambient lighting
-				var ambiColor = "#1c1c1c";
-				var ambientLight = new THREE.AmbientLight(ambiColor);
-				scene.add(ambientLight);
-				let k = 3;
-
 			});
-
-		function onWindowResize() {
-			camera.aspect = window.innerWidth / window.innerHeight;
-			camera.updateProjectionMatrix();
-
-			renderer.setSize(window.innerWidth, window.innerHeight);
-		}
-
-		window.addEventListener('resize', onWindowResize, false);
 	}
 
 	/**
@@ -122,13 +105,13 @@ import FormHandle from './formHandle';
 	 */
 	function animateScene() {
 
-		//if(cubeMesh) {
-		//	// Increase the x, y and z rotation of the cube
-		//	xRotation += 0.03;
-		//	yRotation += 0.02;
-		//	zRotation += 0.04;
-		//	cubeMesh.rotation.set(xRotation, yRotation, zRotation);
-		//}
+		if(cubeMesh) {
+			// Increase the x, y and z rotation of the cube
+			xRotation += 0.03;
+			yRotation += 0.02;
+			zRotation += 0.04;
+			cubeMesh.rotation.set(xRotation, yRotation, zRotation);
+		}
 
 
 		// Define the function, which is called by the browser supported timer loop.
@@ -142,5 +125,17 @@ import FormHandle from './formHandle';
 		// Update the scene and camera
 		renderer.render(scene, camera);
 	}
+
+	/**
+	 * Events handlers
+	 */
+	function onWindowResize() {
+		camera.aspect = window.innerWidth / window.innerHeight;
+		camera.updateProjectionMatrix();
+
+		renderer.setSize(window.innerWidth, window.innerHeight);
+	}
+
+	window.addEventListener('resize', onWindowResize, false);
 
 })();

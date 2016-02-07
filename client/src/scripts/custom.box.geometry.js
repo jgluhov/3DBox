@@ -12,7 +12,6 @@ export default class CustomBoxGeometry extends THREE.Geometry {
 		super();
 		this.parse(triangulations);
 		this.computeFaceNormals();
-		this.setColours();
 	}
 	parse(triangulations) {
 		this.faces = [];
