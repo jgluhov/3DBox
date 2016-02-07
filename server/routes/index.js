@@ -42,12 +42,12 @@ function Box() {
 
 		this.vertices.push(this.createVertex(-width/2, -length/2, 0));  // 0
 		this.vertices.push(this.createVertex(-width/2, length/2, 0)); // 1
-		this.vertices.push(this.createVertex(-width/2, -length/2, height)); // 2
-		this.vertices.push(this.createVertex(-width/2, length/2, height)); // 3
+		this.vertices.push(this.createVertex(-width/2, -length/2, +height)); // 2
+		this.vertices.push(this.createVertex(-width/2, length/2, +height)); // 3
 		this.vertices.push(this.createVertex(width/2, -length/2, 0)); // 4
-		this.vertices.push(this.createVertex(width/2, -length/2, height)); // 5
+		this.vertices.push(this.createVertex(width/2, -length/2, +height)); // 5
 		this.vertices.push(this.createVertex(width/2, length/2, 0)); // 6
-		this.vertices.push(this.createVertex(width/2, length/2, height)); // 7
+		this.vertices.push(this.createVertex(width/2, length/2, +height)); // 7
 	};
 
 	this.generateTriangulations = function() {
