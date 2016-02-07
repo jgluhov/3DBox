@@ -4,7 +4,7 @@
 import 'rxjs';
 import 'rx-dom';
 
-export default class FormHandle {
+export default class FormHandler {
 
 	constructor(formId) {
 		this.form = document.getElementById('controlsForm');

@@ -7,7 +7,7 @@ import {THREE} from 'three.js/node_modules/three';
 import * as Detector from 'three-detector';
 
 import CustomBoxGeometry from './custom.box.geometry';
-import FormHandle from './formHandle';
+import FormHandler from './form.handler';
 
 (function () {
 	// Global scene object
@@ -90,8 +90,8 @@ import FormHandle from './formHandle';
 		scene.add( pointLight2 );
 
 		// Create a form handle to change dimensions of the box.
-		let formHandle = new FormHandle('controlsForm');
-		formHandle.observe().subscribe(
+		let formHandler = new FormHandler('controlsForm');
+		formHandler.observe().subscribe(
 			(triangulations) => {
 				scene.remove(cubeMesh);
 				let boxGeometry = new CustomBoxGeometry(triangulations);
