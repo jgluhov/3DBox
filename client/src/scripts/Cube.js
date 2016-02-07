@@ -3,17 +3,13 @@
  */
 
 import {THREE} from 'three.js/node_modules/three';
-import BoxGeometry from './boxGeometry';
+import BoxGeometry from './custom.box.geometry';
 
 export default class Cube extends THREE.Mesh {
 	constructor(triangulations) {
 		let geometry = new BoxGeometry(triangulations);
 
-		let material = new THREE.MeshBasicMaterial( {
-			side: THREE.DoubleSide,
-			vertexColors: THREE.FaceColors,
-			overdraw: 0.5
-		} );
+
 		geometry.setColours();
 		super(geometry, material);
 		this.matrixAutoUpdate = true;
