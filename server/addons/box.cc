@@ -10,6 +10,9 @@ using v8::Number;
 using v8::Array;
 using v8::Exception;
 
+const int32_t tM = 12;
+const int32_t tN = 3;
+
 void Method(const FunctionCallbackInfo<Value>& args) {
   Isolate* isolate = args.GetIsolate();
 
@@ -83,10 +86,10 @@ void Method(const FunctionCallbackInfo<Value>& args) {
   // trianglesN = 3
   // There are 3 points in one triangle.
   // P.S. Every point is a vector from rows array below
-  int32_t tM = 12;
-  int32_t tN = 3;
+//  int32_t tM = 12;
+//  int32_t tN = 3;
 
-  int triangles[12][3] =
+  int triangles[tM][tN] =
   {
     { 0, 6, 1 },
     { 0, 4, 6 },
