@@ -21,6 +21,6 @@ if not open your browser and enter this address you will see client app.
 # Server
 To run server part of the app you need to do:
 
-1. Go to server folder and enter "**npm install**"
-2. Please enter next command "**npm start**"
+1. Go to **server folder** and enter "**npm install**"
+2. Please **enter** next command "**npm start**"
 You have already start server part of the app.
