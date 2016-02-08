@@ -12,9 +12,9 @@ If you don't have any http server you can install this package
 "**(sudo) npm install live-server -g**"
 After this
 
-1. Go to client folder and enter this command "**npm install**"
+1. Go to **client folder** and enter this command "**npm install**"
 2. After this type in your console "**npm run build**" and press enter button
-3. Please go to public folder and type in console this command "**live-server**"
+3. Please go to **public folder** and type in console this command "**live-server**"
 You have already run client part and your browser should be opened on the page "**http://localhost:8080**"
 if not open your browser and enter this address you will see client app.
 
