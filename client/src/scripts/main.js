@@ -97,6 +97,8 @@ import FormHandler from './form.handler';
 				let boxGeometry = new CustomBoxGeometry(triangulations);
 				cubeMesh = new THREE.Mesh(boxGeometry, boxMaterial);
 				scene.add(cubeMesh);
+			}, (err) => {
+				alert(`Server does not respond! \n ${JSON.stringify(err)}`);
 			});
 	}
 
