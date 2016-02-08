@@ -22,9 +22,11 @@
     "webpack": "^1.12.13",
     "webpack-dev-server": "^1.14.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "extract-text-webpack-plugin": "^1.0.1"
+  },
   "scripts": {
-    "start": "./node_modules/.bin/webpack-dev-server"
+    "build": "./node_modules/.bin/webpack"
   },
   "keywords": [],
   "author": "",

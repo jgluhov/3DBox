@@ -1,13 +1,13 @@
 /**
  * Created by jgluhov on 05/02/16.
  */
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin'),
+	ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
 	context: __dirname + '/src',
 	entry:  {
 		main: [
-			'webpack-dev-server/client?http://localhost:8080',
 			'./scripts/main.js'
 		]
 	},
@@ -30,22 +30,23 @@ module.exports = {
 			},
 			{
 				test: /\.css$/,
-				loader: "style-loader!css-loader"
+				loader: ExtractTextPlugin.extract("style-loader","css-loader")
 			},
 			{
 				test: /\.styl$/,
-				loader: "style-loader!css-loader!stylus-loader"
+				loader: ExtractTextPlugin.extract("style-loader","css-loader!stylus-loader?resolve url")
 			},
 			{
 				test: /\.(ttf|woff|woff2|eot|svg)$/,
-				loader: 'file-loader'
+				loader: 'file-loader?name=./fonts/[name].[ext]'
 			}
 		]
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
 			template: './templates/index.jade'
-		})
+		}),
+		new ExtractTextPlugin("./css/styles.css", {disable: process.env.NODE_ENV == 'development'})
 	],
 	devtool: 'inline-source-map',
 	devServer: {
